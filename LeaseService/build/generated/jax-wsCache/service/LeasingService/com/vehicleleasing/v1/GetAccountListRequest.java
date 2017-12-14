@@ -19,8 +19,9 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="customerName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="customerName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="leasesVehicle" type="{http://www.vehicleleasing.com/v1}vinType" minOccurs="0"/&gt;
+ *         &lt;element name="hasLeases" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -32,18 +33,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "token",
-    "requestId",
-    "customerName"
+    "customerName",
+    "leasesVehicle",
+    "hasLeases"
 })
-@XmlRootElement(name = "addAccountRequest")
-public class AddAccountRequest {
+@XmlRootElement(name = "getAccountListRequest")
+public class GetAccountListRequest {
 
     @XmlElement(required = true)
     protected String token;
-    @XmlElement(required = true)
-    protected String requestId;
-    @XmlElement(required = true)
     protected String customerName;
+    protected String leasesVehicle;
+    protected Boolean hasLeases;
 
     /**
      * Gets the value of the token property.
@@ -70,30 +71,6 @@ public class AddAccountRequest {
     }
 
     /**
-     * Gets the value of the requestId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRequestId() {
-        return requestId;
-    }
-
-    /**
-     * Sets the value of the requestId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRequestId(String value) {
-        this.requestId = value;
-    }
-
-    /**
      * Gets the value of the customerName property.
      * 
      * @return
@@ -115,6 +92,54 @@ public class AddAccountRequest {
      */
     public void setCustomerName(String value) {
         this.customerName = value;
+    }
+
+    /**
+     * Gets the value of the leasesVehicle property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLeasesVehicle() {
+        return leasesVehicle;
+    }
+
+    /**
+     * Sets the value of the leasesVehicle property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLeasesVehicle(String value) {
+        this.leasesVehicle = value;
+    }
+
+    /**
+     * Gets the value of the hasLeases property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isHasLeases() {
+        return hasLeases;
+    }
+
+    /**
+     * Sets the value of the hasLeases property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setHasLeases(Boolean value) {
+        this.hasLeases = value;
     }
 
 }

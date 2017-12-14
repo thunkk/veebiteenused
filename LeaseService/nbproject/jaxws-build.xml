@@ -26,24 +26,24 @@
             <isset property="conf.dir"/>
         </condition>
     </target>
-    <target name="wsimport-service-LeaseService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/LeaseService"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/LeaseService" destdir="${build.generated.dir}/jax-wsCache/service/LeaseService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/LeaseService/wsdl/LeaseService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/LeaseService/wsdl/LeaseService.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/LeaseService"/>
+    <target name="wsimport-service-LeasingService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/LeasingService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/LeasingService" destdir="${build.generated.dir}/jax-wsCache/service/LeasingService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/LeasingService/wsdl/LeaseService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/LeasingService/wsdl/LeaseService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/LeasingService"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/LeaseService">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/LeasingService">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/LeaseService">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/LeaseService/wsdl/"/>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/LeasingService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/LeasingService/wsdl/"/>
         </copy>
     </target>
-    <target name="wsimport-service-clean-LeaseService" depends="-init-project">
+    <target name="wsimport-service-clean-LeasingService" depends="-init-project">
         <delete dir="${build.generated.sources.dir}/jax-ws/com/vehicleleasing/v1"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/service/LeaseService"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/LeasingService"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-LeaseService"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-LeasingService"/>
 </project>

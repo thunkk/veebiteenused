@@ -23,7 +23,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="accountId" type="{http://www.w3.org/2001/XMLSchema}integer"/&gt;
  *         &lt;element name="vin" type="{http://www.vehicleleasing.com/v1}vinType"/&gt;
  *         &lt;element name="leasePerMonth" type="{http://www.vehicleleasing.com/v1}moneyType"/&gt;
@@ -40,7 +39,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "token",
-    "requestId",
     "accountId",
     "vin",
     "leasePerMonth",
@@ -52,8 +50,6 @@ public class AddAccountVehicleRequest {
 
     @XmlElement(required = true)
     protected String token;
-    @XmlElement(required = true)
-    protected String requestId;
     @XmlElement(required = true)
     protected BigInteger accountId;
     @XmlElement(required = true)
@@ -89,30 +85,6 @@ public class AddAccountVehicleRequest {
      */
     public void setToken(String value) {
         this.token = value;
-    }
-
-    /**
-     * Gets the value of the requestId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRequestId() {
-        return requestId;
-    }
-
-    /**
-     * Sets the value of the requestId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRequestId(String value) {
-        this.requestId = value;
     }
 
     /**

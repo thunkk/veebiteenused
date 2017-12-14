@@ -1,6 +1,7 @@
 
 package com.vehicleleasing.v1;
 
+import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,8 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="customerName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}integer"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -32,18 +32,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "token",
-    "requestId",
-    "customerName"
+    "id"
 })
-@XmlRootElement(name = "addAccountRequest")
-public class AddAccountRequest {
+@XmlRootElement(name = "getAccountRequest")
+public class GetAccountRequest {
 
     @XmlElement(required = true)
     protected String token;
     @XmlElement(required = true)
-    protected String requestId;
-    @XmlElement(required = true)
-    protected String customerName;
+    protected BigInteger id;
 
     /**
      * Gets the value of the token property.
@@ -70,51 +67,27 @@ public class AddAccountRequest {
     }
 
     /**
-     * Gets the value of the requestId property.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link BigInteger }
      *     
      */
-    public String getRequestId() {
-        return requestId;
+    public BigInteger getId() {
+        return id;
     }
 
     /**
-     * Sets the value of the requestId property.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link BigInteger }
      *     
      */
-    public void setRequestId(String value) {
-        this.requestId = value;
-    }
-
-    /**
-     * Gets the value of the customerName property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    /**
-     * Sets the value of the customerName property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCustomerName(String value) {
-        this.customerName = value;
+    public void setId(BigInteger value) {
+        this.id = value;
     }
 
 }

@@ -32,11 +32,10 @@
 			<xs:complexType name="vehicleType">
 				<xs:sequence>
 					<xs:element name="vin" type="tns:vinType"/>
-					<xs:element name="licencePlate" type="xs:string"/>
+					<xs:element name="licensePlate" type="xs:string"/>
 					<xs:element name="type" type="tns:vehicleTypeType"/>
 					<xs:element name="brand" type="xs:string"/>
 					<xs:element name="model" type="xs:string"/>
-					<xs:element name="status" type="tns:statusType"/>
 					<xs:element name="acquiredAt" type="xs:date"/>
 					<xs:element minOccurs="0" name="soldAt" type="xs:date"/>
 				</xs:sequence>
@@ -76,8 +75,9 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="token" type="xs:string"/>
+						<xs:element name="requestId" type="xs:string"/>
 						<xs:element name="vin" type="tns:vinType"/>
-						<xs:element name="licencePlate" type="xs:string"/>
+						<xs:element name="licensePlate" type="xs:string"/>
 						<xs:element name="type" type="tns:vehicleTypeType"/>
 						<xs:element name="brand" type="xs:string"/>
 						<xs:element name="model" type="xs:string"/>
@@ -113,6 +113,7 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="token" type="xs:string"/>
+						<xs:element name="requestId" type="xs:string"/>
 						<xs:element name="customerName" type="xs:string"/>
 					</xs:sequence>
 				</xs:complexType>
@@ -148,6 +149,7 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="token" type="xs:string"/>
+						<xs:element name="requestId" type="xs:string"/>
 						<xs:element name="accountId" type="xs:integer"/>
 						<xs:element name="vin" type="tns:vinType"/>
 						<xs:element name="leasePerMonth" type="tns:moneyType"/>

@@ -20,10 +20,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="vin" type="{http://www.vehicleleasing.com/v1}vinType"/&gt;
- *         &lt;element name="licensePlate" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="licencePlate" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="type" type="{http://www.vehicleleasing.com/v1}vehicleTypeType"/&gt;
  *         &lt;element name="brand" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="model" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="status" type="{http://www.vehicleleasing.com/v1}statusType"/&gt;
  *         &lt;element name="acquiredAt" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
  *         &lt;element name="soldAt" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
@@ -37,10 +38,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "vehicleType", propOrder = {
     "vin",
-    "licensePlate",
+    "licencePlate",
     "type",
     "brand",
     "model",
+    "status",
     "acquiredAt",
     "soldAt"
 })
@@ -49,13 +51,15 @@ public class VehicleType {
     @XmlElement(required = true)
     protected String vin;
     @XmlElement(required = true)
-    protected String licensePlate;
+    protected String licencePlate;
     @XmlElement(required = true)
     protected String type;
     @XmlElement(required = true)
     protected String brand;
     @XmlElement(required = true)
     protected String model;
+    @XmlElement(required = true)
+    protected String status;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar acquiredAt;
@@ -87,27 +91,27 @@ public class VehicleType {
     }
 
     /**
-     * Gets the value of the licensePlate property.
+     * Gets the value of the licencePlate property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getLicensePlate() {
-        return licensePlate;
+    public String getLicencePlate() {
+        return licencePlate;
     }
 
     /**
-     * Sets the value of the licensePlate property.
+     * Sets the value of the licencePlate property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setLicensePlate(String value) {
-        this.licensePlate = value;
+    public void setLicencePlate(String value) {
+        this.licencePlate = value;
     }
 
     /**
@@ -180,6 +184,30 @@ public class VehicleType {
      */
     public void setModel(String value) {
         this.model = value;
+    }
+
+    /**
+     * Gets the value of the status property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Sets the value of the status property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setStatus(String value) {
+        this.status = value;
     }
 
     /**

@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "LeaseService", targetNamespace = "http://www.vehicleleasing.com/v1", wsdlLocation = "file:/home/ss/NetBeansProjects/LeaseService/src/conf/xml-resources/web-services/LeasingService/wsdl/LeaseService.wsdl")
+@WebServiceClient(name = "LeaseService", targetNamespace = "http://www.vehicleleasing.com/v1", wsdlLocation = "file:/home/ss/NetBeansProjects/LeaseService/src/conf/xml-resources/web-services/NewWebServiceFromWSDL/wsdl/LeaseService.wsdl")
 public class LeaseService
     extends Service
 {
@@ -30,7 +30,7 @@ public class LeaseService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/home/ss/NetBeansProjects/LeaseService/src/conf/xml-resources/web-services/LeasingService/wsdl/LeaseService.wsdl");
+            url = new URL("file:/home/ss/NetBeansProjects/LeaseService/src/conf/xml-resources/web-services/NewWebServiceFromWSDL/wsdl/LeaseService.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

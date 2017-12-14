@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="LeaseService">
-      <implementation-class>vehicleleasing.LeaseService</implementation-class>
+    <service name="LeasingService">
+      <implementation-class>vehicleleasing.LeasingService</implementation-class>
       <wsdl-url>file:/home/ss/NetBeansProjects/LeaseService.wsdl</wsdl-url>
       <local-wsdl-file>LeaseService.wsdl</local-wsdl-file>
       <service-name>LeaseService</service-name>

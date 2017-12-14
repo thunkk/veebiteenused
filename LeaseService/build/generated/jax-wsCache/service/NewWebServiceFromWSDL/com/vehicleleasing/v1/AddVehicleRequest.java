@@ -1,8 +1,6 @@
 
 package com.vehicleleasing.v1;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -23,12 +21,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="accountId" type="{http://www.w3.org/2001/XMLSchema}integer"/&gt;
  *         &lt;element name="vin" type="{http://www.vehicleleasing.com/v1}vinType"/&gt;
- *         &lt;element name="leasePerMonth" type="{http://www.vehicleleasing.com/v1}moneyType"/&gt;
- *         &lt;element name="leaseStart" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
- *         &lt;element name="leaseEnd" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
+ *         &lt;element name="licencePlate" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="type" type="{http://www.vehicleleasing.com/v1}vehicleTypeType"/&gt;
+ *         &lt;element name="brand" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="model" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="acquiredAt" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -40,32 +38,31 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "token",
-    "requestId",
-    "accountId",
     "vin",
-    "leasePerMonth",
-    "leaseStart",
-    "leaseEnd"
+    "licencePlate",
+    "type",
+    "brand",
+    "model",
+    "acquiredAt"
 })
-@XmlRootElement(name = "addAccountVehicleRequest")
-public class AddAccountVehicleRequest {
+@XmlRootElement(name = "addVehicleRequest")
+public class AddVehicleRequest {
 
     @XmlElement(required = true)
     protected String token;
     @XmlElement(required = true)
-    protected String requestId;
-    @XmlElement(required = true)
-    protected BigInteger accountId;
-    @XmlElement(required = true)
     protected String vin;
     @XmlElement(required = true)
-    protected BigDecimal leasePerMonth;
+    protected String licencePlate;
+    @XmlElement(required = true)
+    protected String type;
+    @XmlElement(required = true)
+    protected String brand;
+    @XmlElement(required = true)
+    protected String model;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar leaseStart;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar leaseEnd;
+    protected XMLGregorianCalendar acquiredAt;
 
     /**
      * Gets the value of the token property.
@@ -89,54 +86,6 @@ public class AddAccountVehicleRequest {
      */
     public void setToken(String value) {
         this.token = value;
-    }
-
-    /**
-     * Gets the value of the requestId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRequestId() {
-        return requestId;
-    }
-
-    /**
-     * Sets the value of the requestId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRequestId(String value) {
-        this.requestId = value;
-    }
-
-    /**
-     * Gets the value of the accountId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getAccountId() {
-        return accountId;
-    }
-
-    /**
-     * Sets the value of the accountId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setAccountId(BigInteger value) {
-        this.accountId = value;
     }
 
     /**
@@ -164,75 +113,123 @@ public class AddAccountVehicleRequest {
     }
 
     /**
-     * Gets the value of the leasePerMonth property.
+     * Gets the value of the licencePlate property.
      * 
      * @return
      *     possible object is
-     *     {@link BigDecimal }
+     *     {@link String }
      *     
      */
-    public BigDecimal getLeasePerMonth() {
-        return leasePerMonth;
+    public String getLicencePlate() {
+        return licencePlate;
     }
 
     /**
-     * Sets the value of the leasePerMonth property.
+     * Sets the value of the licencePlate property.
      * 
      * @param value
      *     allowed object is
-     *     {@link BigDecimal }
+     *     {@link String }
      *     
      */
-    public void setLeasePerMonth(BigDecimal value) {
-        this.leasePerMonth = value;
+    public void setLicencePlate(String value) {
+        this.licencePlate = value;
     }
 
     /**
-     * Gets the value of the leaseStart property.
+     * Gets the value of the type property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Sets the value of the type property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setType(String value) {
+        this.type = value;
+    }
+
+    /**
+     * Gets the value of the brand property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getBrand() {
+        return brand;
+    }
+
+    /**
+     * Sets the value of the brand property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setBrand(String value) {
+        this.brand = value;
+    }
+
+    /**
+     * Gets the value of the model property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getModel() {
+        return model;
+    }
+
+    /**
+     * Sets the value of the model property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setModel(String value) {
+        this.model = value;
+    }
+
+    /**
+     * Gets the value of the acquiredAt property.
      * 
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getLeaseStart() {
-        return leaseStart;
+    public XMLGregorianCalendar getAcquiredAt() {
+        return acquiredAt;
     }
 
     /**
-     * Sets the value of the leaseStart property.
+     * Sets the value of the acquiredAt property.
      * 
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setLeaseStart(XMLGregorianCalendar value) {
-        this.leaseStart = value;
-    }
-
-    /**
-     * Gets the value of the leaseEnd property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getLeaseEnd() {
-        return leaseEnd;
-    }
-
-    /**
-     * Sets the value of the leaseEnd property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setLeaseEnd(XMLGregorianCalendar value) {
-        this.leaseEnd = value;
+    public void setAcquiredAt(XMLGregorianCalendar value) {
+        this.acquiredAt = value;
     }
 
 }

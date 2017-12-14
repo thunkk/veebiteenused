@@ -14,12 +14,11 @@ CREATE TABLE accounts (
 
 CREATE TABLE vehicles (
   vin varchar(17),
-  licence_plate varchar(10) NOT NULL,
+  license_plate varchar(10) NOT NULL,
   type varchar(16) NOT NULL,
   brand varchar(255) NOT NULL,
   model varchar(255) NOT NULL,
-  status varchar(16) NOT NULL,
-  acquired_at date NOT NULL,
+  acquired_at date NOT NULL DEFAULT current_date,
   sold_at date NULL DEFAULT NULL,
   CONSTRAINT PK_vehicles PRIMARY KEY(vin)
 );
