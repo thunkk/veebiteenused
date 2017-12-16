@@ -41,7 +41,10 @@ public class LeaseDB {
                 insertAccount = conn.prepareStatement("INSERT INTO accounts (name) VALUES (?) RETURNING *;");
                 insertAccountVehicle = conn.prepareStatement("INSERT INTO account_vehicles (account_id, vin, lease_start, lease_end, lease_per_month) VALUES (?, ?, ?, ?, ?) RETURNING *;");
                 selectAccount = conn.prepareStatement("SELECT * FROM accounts WHERE id = ?;");
-                selectAccounts = conn.prepareStatement("SELECT * FROM accounts;");
+                selectAccounts = conn.prepareStatement("SELECT * FROM accounts LEFT JOIN account_vehicles ON id = account_id "
+                        + "WHERE (name LIKE ? OR ? = 0)"
+                        + "  AND (vin LIKE ? OR ? = 0)"
+                        + "  AND ((vin IS NULL AND ? = FALSE) OR (VIN IS NOT NULL AND ? = TRUE) OR ? = 0);");
                 insertVehicle = conn.prepareStatement("INSERT INTO vehicles (vin, license_plate, type, brand, model, acquired_at) VALUES (?, ?, ?, ?, ?, ?) RETURNING *;");
                 selectVehicle = conn.prepareStatement("SELECT * FROM vehicles WHERE vin = ?;");
                 selectVehicles = conn.prepareStatement("SELECT * FROM vehicles;");
@@ -76,6 +79,7 @@ public class LeaseDB {
         VehicleType vehicle = new VehicleType();
         vehicle.setVin(results.getString("vin"));
         vehicle.setLicensePlate(results.getString("license_plate"));
+        vehicle.setType(results.getString("type"));
         vehicle.setBrand(results.getString("brand"));
         vehicle.setModel(results.getString("model"));
         vehicle.setSoldAt(convertDate(results.getDate("sold_at")));
@@ -142,9 +146,39 @@ public class LeaseDB {
     }
     
     public GetAccountListResponse getAccountList(GetAccountListRequest parameter) {
+        /*SELECT * FROM accounts LEFT JOIN account_vehicles ON id = account_id"
+                        + "WHERE (name LIKE ? OR ? IS NULL)"
+                        + "  AND (vin LIKE ? OR ? IS NULL)"
+                        + "  AND ((vin IS NULL AND ? = 0) OR (VIN IS NOT NULL AND ? = 1) OR ? IS NULL);");*/
         try {
             GetAccountListResponse response = new GetAccountListResponse();
             List<AccountType> accounts = response.getAccount();
+            selectAccounts.clearParameters();
+            if (parameter.getCustomerName() == null) {
+                selectAccounts.setNull(1, 0);
+                selectAccounts.setInt(2, 0);
+            } else {
+                String search = "%" + parameter.getCustomerName() + "%";
+                selectAccounts.setString(1, search);
+                selectAccounts.setInt(2, 1);
+            }
+            if (parameter.getLeasesVehicle() == null) {
+                selectAccounts.setNull(3, 0);
+                selectAccounts.setInt(4, 0);
+            } else {
+                String search = "%" + parameter.getLeasesVehicle() + "%";
+                selectAccounts.setString(3, search);
+                selectAccounts.setInt(4, 1);
+            }
+            if (parameter.isHasLeases() == null) {
+                selectAccounts.setNull(5, 0);
+                selectAccounts.setNull(6, 0);
+                selectAccounts.setInt(7, 0);
+            } else {
+                selectAccounts.setBoolean(5, parameter.isHasLeases());
+                selectAccounts.setBoolean(6, parameter.isHasLeases());
+                selectAccounts.setInt(7, 1);
+            }
             ResultSet results = selectAccounts.executeQuery();
             AccountType current = accountTypeFromResults(results); 
             while(current != null) {

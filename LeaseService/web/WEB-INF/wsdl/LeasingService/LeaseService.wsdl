@@ -24,11 +24,6 @@
 					<xs:pattern value="Van|Pickup|Sedan|Other"/>
 				</xs:restriction>
 			</xs:simpleType>
-			<xs:simpleType name="statusType">
-				<xs:restriction base="xs:string">
-					<xs:pattern value="Available|Leased|Sold"/>
-				</xs:restriction>
-			</xs:simpleType>
 			<xs:complexType name="vehicleType">
 				<xs:sequence>
 					<xs:element name="vin" type="tns:vinType"/>
@@ -58,8 +53,6 @@
 					<xs:element name="id" type="xs:integer"/>
 					<xs:element name="createdAt" type="xs:date"/>
 					<xs:element name="customerName" type="xs:string"/>
-					<xs:element name="credit" type="tns:moneyType"/>
-					<xs:element name="accountVehicleList" type="tns:accountVehicleListType"/>
 				</xs:sequence>
 			</xs:complexType>
 			<xs:element name="getVehicleRequest">

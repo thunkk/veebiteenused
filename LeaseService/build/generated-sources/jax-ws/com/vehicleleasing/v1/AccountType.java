@@ -1,7 +1,6 @@
 
 package com.vehicleleasing.v1;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -24,8 +23,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}integer"/&gt;
  *         &lt;element name="createdAt" type="{http://www.w3.org/2001/XMLSchema}date"/&gt;
  *         &lt;element name="customerName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="credit" type="{http://www.vehicleleasing.com/v1}moneyType"/&gt;
- *         &lt;element name="accountVehicleList" type="{http://www.vehicleleasing.com/v1}accountVehicleListType"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,9 +35,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType(name = "accountType", propOrder = {
     "id",
     "createdAt",
-    "customerName",
-    "credit",
-    "accountVehicleList"
+    "customerName"
 })
 public class AccountType {
 
@@ -51,10 +46,6 @@ public class AccountType {
     protected XMLGregorianCalendar createdAt;
     @XmlElement(required = true)
     protected String customerName;
-    @XmlElement(required = true)
-    protected BigDecimal credit;
-    @XmlElement(required = true)
-    protected AccountVehicleListType accountVehicleList;
 
     /**
      * Gets the value of the id property.
@@ -126,54 +117,6 @@ public class AccountType {
      */
     public void setCustomerName(String value) {
         this.customerName = value;
-    }
-
-    /**
-     * Gets the value of the credit property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
-     */
-    public BigDecimal getCredit() {
-        return credit;
-    }
-
-    /**
-     * Sets the value of the credit property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
-     */
-    public void setCredit(BigDecimal value) {
-        this.credit = value;
-    }
-
-    /**
-     * Gets the value of the accountVehicleList property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link AccountVehicleListType }
-     *     
-     */
-    public AccountVehicleListType getAccountVehicleList() {
-        return accountVehicleList;
-    }
-
-    /**
-     * Sets the value of the accountVehicleList property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link AccountVehicleListType }
-     *     
-     */
-    public void setAccountVehicleList(AccountVehicleListType value) {
-        this.accountVehicleList = value;
     }
 
 }
