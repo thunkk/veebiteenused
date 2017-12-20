@@ -12,7 +12,7 @@ info:
 host: "petstore.swagger.io"
 basePath: "/v2"
 tags:
-- name: "pet"
+- name: "account"
   description: "Everything about your Pets"
   externalDocs:
     description: "Find out more"
@@ -27,18 +27,16 @@ tags:
 schemes:
 - "http"
 paths:
-  /pet:
+  /accounts:
     post:
       tags:
-      - "pet"
-      summary: "Add a new pet to the store"
+      - "account"
+      summary: "Add a new account"
       description: ""
-      operationId: "addPet"
+      operationId: "addAccount"
       consumes:
       - "application/json"
-      - "application/xml"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - in: "body"
@@ -51,63 +49,40 @@ paths:
         405:
           description: "Invalid input"
       security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
-    put:
+      - api_key: []
+    get:
       tags:
-      - "pet"
-      summary: "Update an existing pet"
+      - "account"
+      summary: "List all accounts in system matching filter"
       description: ""
-      operationId: "updatePet"
-      consumes:
-      - "application/json"
-      - "application/xml"
+      operationId: "getAccounts"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
+      - in: "query"
+        name: "customer-name"
         description: "Pet object that needs to be added to the store"
-        required: true
-        schema:
-          $ref: "#/definitions/Pet"
+        type: "string"
       responses:
         400:
           description: "Invalid ID supplied"
-        404:
-          description: "Pet not found"
-        405:
-          description: "Validation exception"
       security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
-  /pet/findByStatus:
+      - api_key: []
+  /accounts/{accountId}:
     get:
       tags:
-      - "pet"
+      - "account"
       summary: "Finds Pets by status"
       description: "Multiple status values can be provided with comma separated strings"
       operationId: "findPetsByStatus"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
-      - name: "status"
-        in: "query"
+      - name: "accountId"
+        in: "path"
         description: "Status values that need to be considered for filter"
         required: true
-        type: "array"
-        items:
-          type: "string"
-          enum:
-          - "available"
-          - "pending"
-          - "sold"
-          default: "available"
-        collectionFormat: "multi"
+        type: "integer"
       responses:
         200:
           description: "successful operation"
@@ -118,28 +93,35 @@ paths:
         400:
           description: "Invalid status value"
       security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
-  /pet/findByTags:
+      - api_key: []
+  /accounts/{accountId}/vehicles:
+    post:
+      tags:
+      - "account"
+      summary: "Rent a vehicle to an account"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+      security:
+      - api_key: []
     get:
       tags:
-      - "pet"
-      summary: "Finds Pets by tags"
-      description: "Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing."
-      operationId: "findPetsByTags"
+      - "account"
+      summary: "Get vehicles which are rented to the account"
+      description: ""
+      operationId: "getAccountVehicles"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
-      - name: "tags"
-        in: "query"
-        description: "Tags to filter by"
+      - name: "accountId"
+        in: "path"
+        description: "Status values that need to be considered for filter"
         required: true
-        type: "array"
-        items:
-          type: "string"
-        collectionFormat: "multi"
+        type: "integer"
       responses:
         200:
           description: "successful operation"
@@ -150,27 +132,16 @@ paths:
         400:
           description: "Invalid tag value"
       security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
-      deprecated: true
-  /pet/{petId}:
+      - api_key: []
+  /vehicles:
     get:
       tags:
-      - "pet"
-      summary: "Find pet by ID"
+      - "vehicle"
+      summary: "List all vehicles in system"
       description: "Returns a single pet"
-      operationId: "getPetById"
+      operationId: "getVehicles"
       produces:
-      - "application/xml"
       - "application/json"
-      parameters:
-      - name: "petId"
-        in: "path"
-        description: "ID of pet to return"
-        required: true
-        type: "integer"
-        format: "int64"
       responses:
         200:
           description: "successful operation"
@@ -184,68 +155,45 @@ paths:
       - api_key: []
     post:
       tags:
-      - "pet"
+      - "vehicle"
       summary: "Updates a pet in the store with form data"
       description: ""
-      operationId: "updatePetWithForm"
+      operationId: "addVehicle"
       consumes:
-      - "application/x-www-form-urlencoded"
-      produces:
-      - "application/xml"
       - "application/json"
-      parameters:
-      - name: "petId"
-        in: "path"
-        description: "ID of pet that needs to be updated"
-        required: true
-        type: "integer"
-        format: "int64"
-      - name: "name"
-        in: "formData"
-        description: "Updated name of the pet"
-        required: false
-        type: "string"
-      - name: "status"
-        in: "formData"
-        description: "Updated status of the pet"
-        required: false
-        type: "string"
+      produces:
+      - "application/json"
       responses:
         405:
           description: "Invalid input"
       security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
-    delete:
+      - api_key: []
+  /vehicles/{vin}:
+    get:
       tags:
-      - "pet"
-      summary: "Deletes a pet"
-      description: ""
-      operationId: "deletePet"
+      - "vehicle"
+      summary: "Finds Pets by status"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "getVehicle"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
-      - name: "api_key"
-        in: "header"
-        required: false
-        type: "string"
-      - name: "petId"
+      - name: "vin"
         in: "path"
-        description: "Pet id to delete"
+        description: "Status values that need to be considered for filter"
         required: true
         type: "integer"
-        format: "int64"
       responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Pet"
         400:
-          description: "Invalid ID supplied"
-        404:
-          description: "Pet not found"
+          description: "Invalid status value"
       security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
+      - api_key: []
   /pet/{petId}/uploadImage:
     post:
       tags:
@@ -573,8 +521,8 @@ securityDefinitions:
       read:pets: "read your pets"
   api_key:
     type: "apiKey"
-    name: "api_key"
-    in: "header"
+    name: "token"
+    in: "query"
 definitions:
   Order:
     type: "object"
