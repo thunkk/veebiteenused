@@ -1,0 +1,303 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.vehicleleasing.com/v1" targetNamespace="http://www.vehicleleasing.com/v1">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://www.vehicleleasing.com/v1" elementFormDefault="qualified">
+			<xs:simpleType name="vinType">
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[A-Z0-9]{17}"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="moneyType">
+				<xs:restriction base="xs:decimal">
+					<xs:fractionDigits value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="vehicleTypeType">
+				<xs:restriction base="xs:string">
+					<xs:pattern value="Van|Pickup|Sedan|Other"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:complexType name="vehicleType">
+				<xs:sequence>
+					<xs:element name="vin" type="tns:vinType"/>
+					<xs:element name="licensePlate" type="xs:string"/>
+					<xs:element name="type" type="tns:vehicleTypeType"/>
+					<xs:element name="brand" type="xs:string"/>
+					<xs:element name="model" type="xs:string"/>
+					<xs:element name="acquiredAt" type="xs:date"/>
+					<xs:element minOccurs="0" name="soldAt" type="xs:date"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="accountVehicleType">
+				<xs:sequence>
+					<xs:element name="vehicle" type="tns:vehicleType"/>
+					<xs:element name="leasePerMonth" type="tns:moneyType"/>
+					<xs:element name="leaseStart" type="xs:date"/>
+					<xs:element name="leaseEnd" type="xs:date"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="accountVehicleListType">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="unbounded" name="accountVehicle" type="tns:accountVehicleType"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="accountType">
+				<xs:sequence>
+					<xs:element name="id" type="xs:integer"/>
+					<xs:element name="createdAt" type="xs:date"/>
+					<xs:element name="customerName" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getVehicleRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="vin" type="tns:vinType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getVehicleResponse" type="tns:vehicleType"/>
+			<xs:element name="addVehicleRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="requestId" type="xs:string"/>
+						<xs:element name="vin" type="tns:vinType"/>
+						<xs:element name="licensePlate" type="xs:string"/>
+						<xs:element name="type" type="tns:vehicleTypeType"/>
+						<xs:element name="brand" type="xs:string"/>
+						<xs:element name="model" type="xs:string"/>
+						<xs:element name="acquiredAt" type="xs:date"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addVehicleResponse" type="tns:vehicleType"/>
+			<xs:element name="getVehicleListRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getVehicleListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" name="Vehicle" type="tns:vehicleType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getAccountRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="id" type="xs:integer"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getAccountResponse" type="tns:accountType"/>
+			<xs:element name="addAccountRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="requestId" type="xs:string"/>
+						<xs:element name="customerName" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addAccountResponse" type="tns:accountType"/>
+			<xs:element name="getAccountListRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element minOccurs="0" name="customerName" type="xs:string"/>
+						<xs:element minOccurs="0" name="leasesVehicle" type="tns:vinType"/>
+						<xs:element minOccurs="0" name="hasLeases" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getAccountListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" name="account" type="tns:accountType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getAccountVehicleListRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="accountId" type="xs:integer"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getAccountVehicleListResponse" type="tns:accountVehicleListType"/>
+			<xs:element name="addAccountVehicleRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="requestId" type="xs:string"/>
+						<xs:element name="accountId" type="xs:integer"/>
+						<xs:element name="vin" type="tns:vinType"/>
+						<xs:element name="leasePerMonth" type="tns:moneyType"/>
+						<xs:element name="leaseStart" type="xs:date"/>
+						<xs:element name="leaseEnd" type="xs:date"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addAccountVehicleResponse" type="tns:accountVehicleType"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="getVehicleMessageRequest">
+		<wsdl:part name="parameter" element="tns:getVehicleRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getVehicleMessageResponse">
+		<wsdl:part name="parameter" element="tns:getVehicleResponse"/>
+	</wsdl:message>
+	<wsdl:message name="addVehicleMessageRequest">
+		<wsdl:part name="parameter" element="tns:addVehicleRequest"/>
+	</wsdl:message>
+	<wsdl:message name="addVehicleMessageResponse">
+		<wsdl:part name="parameter" element="tns:addVehicleResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getVehicleListMessageRequest">
+		<wsdl:part name="parameter" element="tns:getVehicleListRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getVehicleListMessageResponse">
+		<wsdl:part name="parameter" element="tns:getVehicleListResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getAccountMessageRequest">
+		<wsdl:part name="parameter" element="tns:getAccountRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getAccountMessageResponse">
+		<wsdl:part name="parameter" element="tns:getAccountResponse"/>
+	</wsdl:message>
+	<wsdl:message name="addAccountMessageRequest">
+		<wsdl:part name="parameter" element="tns:addAccountRequest"/>
+	</wsdl:message>
+	<wsdl:message name="addAccountMessageResponse">
+		<wsdl:part name="parameter" element="tns:addAccountResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getAccountListMessageRequest">
+		<wsdl:part name="parameter" element="tns:getAccountListRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getAccountListMessageResponse">
+		<wsdl:part name="parameter" element="tns:getAccountListResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getAccountVehicleListMessageRequest">
+		<wsdl:part name="parameter" element="tns:getAccountVehicleListRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getAccountVehicleListMessageResponse">
+		<wsdl:part name="parameter" element="tns:getAccountVehicleListResponse"/>
+	</wsdl:message>
+	<wsdl:message name="addAccountVehicleMessageRequest">
+		<wsdl:part name="parameter" element="tns:addAccountVehicleRequest"/>
+	</wsdl:message>
+	<wsdl:message name="addAccountVehicleMessageResponse">
+		<wsdl:part name="parameter" element="tns:addAccountVehicleResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="LeasePortType">
+		<wsdl:operation name="getVehicle">
+			<wsdl:input message="tns:getVehicleMessageRequest"/>
+			<wsdl:output message="tns:getVehicleMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="addVehicle">
+			<wsdl:input message="tns:addVehicleMessageRequest"/>
+			<wsdl:output message="tns:addVehicleMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getVehicleList">
+			<wsdl:input message="tns:getVehicleListMessageRequest"/>
+			<wsdl:output message="tns:getVehicleListMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getAccount">
+			<wsdl:input message="tns:getAccountMessageRequest"/>
+			<wsdl:output message="tns:getAccountMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="addAccount">
+			<wsdl:input message="tns:addAccountMessageRequest"/>
+			<wsdl:output message="tns:addAccountMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getAccountList">
+			<wsdl:input message="tns:getAccountListMessageRequest"/>
+			<wsdl:output message="tns:getAccountListMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getAccountVehicleList">
+			<wsdl:input message="tns:getAccountVehicleListMessageRequest"/>
+			<wsdl:output message="tns:getAccountVehicleListMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="addAccountVehicle">
+			<wsdl:input message="tns:addAccountVehicleMessageRequest"/>
+			<wsdl:output message="tns:addAccountVehicleMessageResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="LeaseBinding" type="tns:LeasePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getVehicle">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="addVehicle">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getVehicleList">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getAccount">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="addAccount">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getAccountList">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getAccountVehicleList">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="addAccountVehicle">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="LeaseService">
+		<wsdl:port name="LeasePort" binding="tns:LeaseBinding">
+			<soap:address location="http://localhost:8080/LeaseService/LeaseService"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

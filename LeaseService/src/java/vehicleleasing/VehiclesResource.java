@@ -40,7 +40,7 @@ public class VehiclesResource {
      * @return an instance of com.vehicleleasing.v1.VehicleType
      */
     @GET
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_JSON)
     public GetVehicleListResponse getVehicleList(@QueryParam("token") String token) {
         GetVehicleListRequest request = new GetVehicleListRequest();
         request.setToken(token);
@@ -62,9 +62,9 @@ public class VehiclesResource {
      * @param content representation for the resource
      */
     @POST
-    @Consumes(MediaType.APPLICATION_XML)
-    @Produces(MediaType.APPLICATION_XML)
-    public VehicleType addVehicle(@QueryParam("token") String token, @QueryParam("token") String requestId, RESTVehicleType vehicle) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public VehicleType addVehicle(@QueryParam("token") String token, @QueryParam("request-id") String requestId, RESTVehicleType vehicle) {
         AddVehicleRequest request = new AddVehicleRequest();
         request.setToken(token);
         request.setRequestId(requestId);

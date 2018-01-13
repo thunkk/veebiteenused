@@ -1,0 +1,689 @@
+{
+	"info": {
+		"name": "Vehicle Leasing",
+		"_postman_id": "0df5ca90-7e2c-d629-dff8-f28ed1d0360c",
+		"description": "This documentation describes VehicleLeasing's renting system's REST API. This documentation is internal and meant only for developers.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "accounts",
+			"description": "Folder for accounts",
+			"item": [
+				{
+					"name": "List all accounts in system matching filter",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1060f4fb-2841-4c64-994d-f4354a11a009",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "bc22fdca-a316-4eef-b76d-0f963ed514d9",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Test accounts were returned\", function () {",
+									"    let accounts = pm.response.json().account;",
+									"    let prefixLength = pm.environment.get(\"testAccountPrefix\").length;",
+									"    for (let account of accounts) {",
+									"        pm.expect(account.customerName.slice(0, prefixLength)).to.eq(pm.environment.get(\"testAccountPrefix\"));",
+									"    }",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/LeaseService/webresources/accounts?token={{token}}&customer-name={{testAccountPrefix}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LeaseService",
+								"webresources",
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true
+								},
+								{
+									"key": "customer-name",
+									"value": "{{testAccountPrefix}}",
+									"equals": true
+								}
+							]
+						},
+						"description": "Any subset of the following parameters may be used to filter accounts"
+					},
+					"response": []
+				},
+				{
+					"name": "Add a new account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1c345684-7834-4b07-9f7c-ba74f2c69d01",
+								"type": "text/javascript",
+								"exec": [
+									"id = (Math.random() * 10000) | 0;",
+									"",
+									"pm.environment.set(\"testAccount\", pm.environment.get(\"testAccountPrefix\") + id);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "de5db21b-8ade-47c8-8d80-074f5d0af211",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"An account was created\", function () {",
+									"    pm.expect(pm.response.json().customerName).to.eq(pm.environment.get(\"testAccount\"));",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerName\": \"{{testAccount}}\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/LeaseService/webresources/accounts?token={{token}}&request-id={{$randomInt}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LeaseService",
+								"webresources",
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true
+								},
+								{
+									"key": "request-id",
+									"value": "{{$randomInt}}",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "92167238-99cc-4940-89f2-931c2e9b4203",
+							"name": "Add a new account TEST",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"customerName\": \"TEST ACCOUNT\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/LeaseService/webresources/accounts?token={{token}}&requestId={{$randomInt}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"LeaseService",
+										"webresources",
+										"accounts"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"equals": true
+										},
+										{
+											"key": "requestId",
+											"value": "{{$randomInt}}",
+											"equals": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "65",
+									"name": "Content-Length",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Jan 2018 03:54:06 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Server",
+									"value": "GlassFish Server Open Source Edition  4.1.1 ",
+									"name": "Server",
+									"description": "A name for the server"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Servlet/3.1 JSP/2.3 (GlassFish Server Open Source Edition  4.1.1  Java/Oracle Corporation/1.8)",
+									"name": "X-Powered-By",
+									"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+								}
+							],
+							"cookie": [],
+							"responseTime": 524,
+							"body": "{\"id\":10,\"createdAt\":1515967200000,\"customerName\":\"TEST ACCOUNT\"}"
+						}
+					]
+				},
+				{
+					"name": "Get account by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "16f21245-b0f8-4560-a43f-7af5fc286023",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Account id matches\", function () {",
+									"    pm.expect(pm.response.json().id.toString()).to.eq(pm.environment.get(\"accountId\"));",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/LeaseService/webresources/accounts/:accountId?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LeaseService",
+								"webresources",
+								"accounts",
+								":accountId"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true
+								}
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{accountId}}"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get vehicles which are rented to the account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "31b3b966-05d9-4027-a4d0-dca3fbf8abdc",
+								"type": "text/javascript",
+								"exec": [
+									"if (!pm.environment.get(\"addedVehicle\")) {",
+									"    throw new Error(\"Lease out a test vehicle before running this\");",
+									"}"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a1cf854f-f995-4816-bbf7-c3900e848a18",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Test accounts were returned\", function () {",
+									"    let leases = pm.response.json().accountVehicle;",
+									"    let vins = [];",
+									"    for (let lease of leases) {",
+									"        vins.push(lease.vehicle.vin);",
+									"    }",
+									"    pm.expect(pm.environment.get(\"addedVehicle\")).to.be.oneOf(vins);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/LeaseService/webresources/accounts/:accountId/vehicles?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LeaseService",
+								"webresources",
+								"accounts",
+								":accountId",
+								"vehicles"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true
+								}
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{accountId}}"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Rent a vehicle to an account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c6ee5f6e-622f-4ca5-8c41-77a03d277c24",
+								"type": "text/javascript",
+								"exec": [
+									"if (!pm.environment.get(\"testVehicle\")) {",
+									"    throw new Error(\"Add a new test vehicle before running this\");",
+									"}"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "18028608-bfc7-4822-9132-9b88029a2bda",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"A test vehicle was leased\", function () {",
+									"    let vehicle = pm.environment.get(\"testVehicle\");",
+									"    pm.expect(pm.response.json().vehicle.vin).to.eq(vehicle);",
+									"    pm.environment.set(\"addedVehicle\", vehicle);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"vin\": \"{{testVehicle}}\",\n  \"leasePerMonth\": 60,\n  \"leaseStart\": \"2013-02-11\",\n  \"leaseEnd\": \"2014-02-11\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/LeaseService/webresources/accounts/:accountId/vehicles?token={{token}}&request-id={{$randomInt}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LeaseService",
+								"webresources",
+								"accounts",
+								":accountId",
+								"vehicles"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true
+								},
+								{
+									"key": "request-id",
+									"value": "{{$randomInt}}",
+									"equals": true
+								}
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{accountId}}"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "vehicles",
+			"description": "Folder for vehicles",
+			"item": [
+				{
+					"name": "List all vehicles in system",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d139d692-1644-4fdf-9efe-e8caeab0f025",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "73b913c4-147a-4545-ac05-0f3d268227b0",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Vehicles with valid VINs were returned\", function () {",
+									"    let vehicles = pm.response.json().vehicle;",
+									"    for (let vehicle of vehicles) {",
+									"        console.log(vehicle.vin)",
+									"        pm.expect(vehicle.vin.length).to.eq(17);",
+									"    }",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/LeaseService/webresources/vehicles?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LeaseService",
+								"webresources",
+								"vehicles"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add a new vehicle",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0f378432-59b6-4206-b635-44e0cea3b76d",
+								"type": "text/javascript",
+								"exec": [
+									"id = ((Math.random() * 900000) | 0) + 100000;",
+									"",
+									"pm.environment.set(\"testVehicle\", pm.environment.get(\"testVehiclePrefix\") + id);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "dceeb5ca-db15-423e-b04c-52dd11e433be",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Vehicle VIN matches\", function () {",
+									"    pm.expect(pm.response.json().vin).to.eq(pm.environment.get(\"testVehicle\"));",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"vin\": \"{{testVehicle}}\",\n  \"licensePlate\": \"blah\",\n  \"type\": \"van\",\n  \"brand\": \"TEST\",\n  \"model\": \"TEST\",\n  \"acquiredAt\": \"2012-02-22\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/LeaseService/webresources/vehicles?token={{token}}&request-id={{$randomInt}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LeaseService",
+								"webresources",
+								"vehicles"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true
+								},
+								{
+									"key": "request-id",
+									"value": "{{$randomInt}}",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get vehicle by VIN",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6b34aa2c-7b72-4912-a1e8-4377fa55844f",
+								"type": "text/javascript",
+								"exec": [
+									"if (!pm.environment.get(\"testVehicle\")) {",
+									"    throw new Error(\"Add a new test vehicle before running this\");",
+									"}"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "741f1253-a29c-4859-bc32-fcd2498062b6",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"A test vehicle was leased\", function () {",
+									"    pm.expect(pm.response.json().vin).to.eq(pm.environment.get(\"testVehicle\"));",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/LeaseService/webresources/vehicles/:vin?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LeaseService",
+								"webresources",
+								"vehicles",
+								":vin"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"equals": true
+								}
+							],
+							"variable": [
+								{
+									"key": "vin",
+									"value": "{{testVehicle}}"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "776911df-190c-4f2c-92e9-07fdb9a693ab",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f4555ec0-b3e4-40e5-9440-c62b7dd1041e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -17,12 +17,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 public class DateHelper {
     public static XMLGregorianCalendar toXMLGregorianCalendar(String date) {
-        if (!date.matches("\\d{4}-\\d{2}-\\d{2}(+\\d{4})?")) {
+        System.out.println(date);
+        if (!date.matches("\\d{4}-\\d{2}-\\d{2}(\\+\\d{4})?")) {
             return null;
         }
         try {
             XMLGregorianCalendar calendar = DatatypeFactory.newInstance().newXMLGregorianCalendar();
-            String[] parts = date.split("+");
+            String[] parts = date.split("\\+");
             String[] dateParts = parts[0].split("-");
             calendar.setYear(Integer.parseInt(dateParts[0]));
             calendar.setMonth(Integer.parseInt(dateParts[1]));

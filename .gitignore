@@ -1,2 +1,5 @@
 **/*.class
 **/*.jar
+/LeaseClient/nbproject/private/
+/LeaseClient/build/
+/LeaseClient/dist/
