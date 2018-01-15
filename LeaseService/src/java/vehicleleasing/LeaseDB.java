@@ -41,7 +41,7 @@ public class LeaseDB {
                 insertAccount = conn.prepareStatement("INSERT INTO accounts (name) VALUES (?) RETURNING *;");
                 insertAccountVehicle = conn.prepareStatement("INSERT INTO account_vehicles (account_id, vin, lease_start, lease_end, lease_per_month) VALUES (?, ?, ?, ?, ?) RETURNING *;");
                 selectAccount = conn.prepareStatement("SELECT * FROM accounts WHERE id = ?;");
-                selectAccounts = conn.prepareStatement("SELECT * FROM accounts LEFT JOIN account_vehicles ON id = account_id "
+                selectAccounts = conn.prepareStatement("SELECT * FROM accounts LEFT JOIN account_vehicles ON accounts.id = account_id "
                         + "WHERE (name LIKE ? OR ? = 0)"
                         + "  AND (vin LIKE ? OR ? = 0)"
                         + "  AND ((vin IS NULL AND ? = FALSE) OR (VIN IS NOT NULL AND ? = TRUE) OR ? = 0);");
