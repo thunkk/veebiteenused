@@ -228,8 +228,8 @@ definitions:
         type: "integer"
         format: "BigInt"
       createdAt:
-        type: "string"
-        format: "YYYY-MM-DD"
+        type: "integer"
+        format: "UNIX"
       customerName:
         type: "string"
   AccountList:
@@ -254,7 +254,8 @@ definitions:
       model:
         type: "string"
       acquiredAt:
-        type: "integer"
+        type: "string"
+        format: "YYYY-MM-DD"
   Vehicle:
     type: "object"
     properties:
@@ -271,8 +272,10 @@ definitions:
         type: "string"
       acquiredAt:
         type: "integer"
+        format: "UNIX"
       soldAt:
         type: "integer"
+        format: "UNIX"
   VehicleList:
     type: "object"
     properties:
@@ -289,8 +292,10 @@ definitions:
         type: "number"
       leaseStart:
         type: "integer"
+        format: "UNIX"
       leaseEnd:
         type: "integer"
+        format: "UNIX"
   LeaseIn:
     type: "object"
     properties:
@@ -300,9 +305,11 @@ definitions:
       leasePerMonth:
         type: "number"
       leaseStart:
-        type: "integer"
+        type: "string"
+        format: "YYYY-MM-DD"
       leaseEnd:
-        type: "integer"
+        type: "string"
+        format: "YYYY-MM-DD"
   AccountVehicles:
     type: "object"
     properties:
